@@ -28,13 +28,23 @@ if (cardsInPlay.length === 2 && cardsInPlay [0] === cardsInPlay[1]){
 } else{
 	alert("Sorry, Try Again");
 }
-}
-var flipCard = function (cardID) {
+};
+var flipCard = function () {
+	var cardId = parseInt(this.getAttribute('data-id'), 10);
+	console.log("User flipped " + (cards[cardId].rank));
+	this.src = cards[cardId].cardImage;
+	cardsInPlay.push(cards[cardId].rank);
 	checkForMatch();
-	console.log("User flipped " + cards[cardID].rank);
-	cardsInPlay.push(cards[cardID].rank);
-	console.log(cards[cardID].cardImage);
-	console.log(cards[cardID].suit);
+	console.log(cards[cardId].cardImage);
+	console.log(cards[cardId].suit);
+};
+var createBoard = function() {
+	for (var i = 0; i < cards.length; i++) {
+		var cardElement = document.createElement('img');
+		cardElement.setAttribute('src', "images/back.png");
+		cardElement.setAttribute('data-id', i);
+		cardElement.addEventListener('click', flipCard);
+		document.getElementById('game-board').appendChild(cardElement);
 }
-flipCard(0);
-flipCard(2);
+};
+createBoard();
